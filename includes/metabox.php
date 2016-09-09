@@ -23,8 +23,13 @@ function asn_metabox_fields() {
 
     $content = get_post_meta( get_the_ID(), 'admin_sticky_note', true );
     $editor_id = 'admin_sticky_note';
+	$settings = array(
+		'media_buttons' => false,
+		'textarea_rows' => '10',
+		'editor_height' => '300px',
+	);
 
-    wp_editor( $content, $editor_id );
+    wp_editor( $content, $editor_id, $settings );
 }
 
 add_action( 'save_post', 'asn_metabox_fields_save' );
@@ -34,19 +39,16 @@ add_action( 'save_post', 'asn_metabox_fields_save' );
  * @param int $post_id  ID of the current post
  */
 function asn_metabox_fields_save() {
-
     $post_id = get_the_ID();
 
     $is_valid_nonce = ( isset( $_POST[ 'asn_nonce' ] ) && wp_verify_nonce( $_POST[ 'asn_nonce' ], basename( __FILE__ ) ) ) ? 'true' : 'false';
 
     // Exits script depending on save status
-    if ( wp_is_post_autosave( $post_id ) || wp_is_post_revision( $post_id ) || ! $is_valid_nonce ) {
+    if ( wp_is_post_autosave( $post_id ) || wp_is_post_revision( $post_id ) || ! $is_valid_nonce )
         return;
-    }
 
     // Checks for input and sanitizes/saves if needed
     if ( isset( $_POST[ 'admin_sticky_note' ] ) ) {
         update_post_meta( $post_id, 'admin_sticky_note', wp_kses_post( $_POST[ 'admin_sticky_note' ] ) );
     }
-
 }
