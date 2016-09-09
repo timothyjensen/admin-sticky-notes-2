@@ -6,5 +6,5 @@ The purpose of this plugin is to make it easier to keep track of edits that you 
 
 ## Instructions
 
-- Sticky notes must first be created on the page editor screen. Simply fill in the heading and content for the note and publish the page/post.
+- Sticky notes must first be created on the page editor screen. Simply fill in the content for the note and publish the page/post.
 - Once notes are created they can be edited on the front end.
